@@ -1,0 +1,188 @@
+Microsoft Windows [Version 10.0.26200.8894]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\user>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create Database Sekolah;
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [(none)]> use sekolah;
+Database changed
+MariaDB [sekolah]> create table siswa(
+    -> id int auto_increment primary key,
+    -> nama varchar(100),
+    -> kelas varchar(20),
+    -> alamat varchar(100)
+    -> );
+Query OK, 0 rows affected (0.070 sec)
+
+MariaDB [sekolah]> insert into siswa(nama,kelas,alamat)values
+    -> ('salsa','XI RPL 2','medan'),
+    -> ('fadila','XI RPL 2','medan'),
+    -> ('nadzira','XI RPL 2','medan'),
+    -> ('ayesa','XI RPL 2','medan'),
+    -> ('shafa','XI APL 3','medan');
+Query OK, 5 rows affected (0.060 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [sekolah]> select* from siswa;
++----+---------+----------+--------+
+| id | nama    | kelas    | alamat |
++----+---------+----------+--------+
+|  1 | salsa   | XI RPL 2 | medan  |
+|  2 | fadila  | XI RPL 2 | medan  |
+|  3 | nadzira | XI RPL 2 | medan  |
+|  4 | ayesa   | XI RPL 2 | medan  |
+|  5 | shafa   | XI APL 3 | medan  |
++----+---------+----------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [sekolah]> select nama, kelas, from siswa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from siswa' at line 1
+MariaDB [sekolah]> select nama, kelas, from siswa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from siswa' at line 1
+MariaDB [sekolah]> Select nama,kelas,from siswa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from siswa' at line 1
+MariaDB [sekolah]> select* from siswa
+    -> where alamat='medan';
++----+---------+----------+--------+
+| id | nama    | kelas    | alamat |
++----+---------+----------+--------+
+|  1 | salsa   | XI RPL 2 | medan  |
+|  2 | fadila  | XI RPL 2 | medan  |
+|  3 | nadzira | XI RPL 2 | medan  |
+|  4 | ayesa   | XI RPL 2 | medan  |
+|  5 | shafa   | XI APL 3 | medan  |
++----+---------+----------+--------+
+5 rows in set (0.013 sec)
+
+MariaDB [sekolah]> select nama, kelas from siswa;
++---------+----------+
+| nama    | kelas    |
++---------+----------+
+| salsa   | XI RPL 2 |
+| fadila  | XI RPL 2 |
+| nadzira | XI RPL 2 |
+| ayesa   | XI RPL 2 |
+| shafa   | XI APL 3 |
++---------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [sekolah]> update siswa
+    -> set alamat='pematangsiantar'
+    -> where id = 1;
+Query OK, 1 row affected (0.013 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [sekolah]> select* from siswa;
++----+---------+----------+-----------------+
+| id | nama    | kelas    | alamat          |
++----+---------+----------+-----------------+
+|  1 | salsa   | XI RPL 2 | pematangsiantar |
+|  2 | fadila  | XI RPL 2 | medan           |
+|  3 | nadzira | XI RPL 2 | medan           |
+|  4 | ayesa   | XI RPL 2 | medan           |
+|  5 | shafa   | XI APL 3 | medan           |
++----+---------+----------+-----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [sekolah]> delete from siswa
+    -> where id = 5;
+Query OK, 1 row affected (0.011 sec)
+
+MariaDB [sekolah]> select* from siswa;
++----+---------+----------+-----------------+
+| id | nama    | kelas    | alamat          |
++----+---------+----------+-----------------+
+|  1 | salsa   | XI RPL 2 | pematangsiantar |
+|  2 | fadila  | XI RPL 2 | medan           |
+|  3 | nadzira | XI RPL 2 | medan           |
+|  4 | ayesa   | XI RPL 2 | medan           |
++----+---------+----------+-----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [sekolah]> select* from siswa
+    -> order by nama asc;
++----+---------+----------+-----------------+
+| id | nama    | kelas    | alamat          |
++----+---------+----------+-----------------+
+|  4 | ayesa   | XI RPL 2 | medan           |
+|  2 | fadila  | XI RPL 2 | medan           |
+|  3 | nadzira | XI RPL 2 | medan           |
+|  1 | salsa   | XI RPL 2 | pematangsiantar |
++----+---------+----------+-----------------+
+4 rows in set (0.003 sec)
+
+MariaDB [sekolah]> select count (*) as jumlah_siswa
+    -> from siswa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*) as jumlah_siswa
+from siswa' at line 1
+MariaDB [sekolah]> select count(*) as jumlah_siswa
+    -> from siswa;
++--------------+
+| jumlah_siswa |
++--------------+
+|            4 |
++--------------+
+1 row in set (0.008 sec)
+
+MariaDB [sekolah]> desc siswa;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nama   | varchar(100) | YES  |     | NULL    |                |
+| kelas  | varchar(20)  | YES  |     | NULL    |                |
+| alamat | varchar(100) | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.038 sec)
+
+MariaDB [sekolah]> show siswa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'siswa' at line 1
+MariaDB [sekolah]> show tables;
++-------------------+
+| Tables_in_sekolah |
++-------------------+
+| siswa             |
++-------------------+
+1 row in set (0.007 sec)
+
+MariaDB [sekolah]> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'database' at line 1
+MariaDB [sekolah]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db_peminjaman_alat |
+| dokter             |
+| e_commerce_atk     |
+| ecommerce_atk      |
+| information_schema |
+| klinik_sederhana   |
+| mysql              |
+| nama_siswa         |
+| peminjaman_alat    |
+| pendaftaran_siswa  |
+| performance_schema |
+| perpustakaan       |
+| perpustakaan1      |
+| phpmyadmin         |
+| sekolah            |
+| sekolah_pengaduan  |
+| siswa              |
+| siswa_rpl2         |
+| test               |
++--------------------+
+19 rows in set (0.073 sec)
+
+MariaDB [sekolah]>
